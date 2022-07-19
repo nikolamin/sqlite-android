@@ -11,8 +11,9 @@ import java.util.Collections;
  * this library.
  */
 @SuppressWarnings("unused")
-public final class RequerySQLiteOpenHelperFactory implements SupportSQLiteOpenHelper.Factory {
+public class RequerySQLiteOpenHelperFactory implements SupportSQLiteOpenHelper.Factory {
     private final Iterable<ConfigurationOptions> configurationOptions;
+    private Class<? extends SQLiteOpenHelperProxyCallback> overideCallbackClass;
 
     @SuppressWarnings("WeakerAccess")
     public RequerySQLiteOpenHelperFactory(Iterable<ConfigurationOptions> configurationOptions) {
@@ -23,8 +24,21 @@ public final class RequerySQLiteOpenHelperFactory implements SupportSQLiteOpenHe
         this(Collections.<ConfigurationOptions>emptyList());
     }
 
+    public RequerySQLiteOpenHelperFactory(Class<? extends SQLiteOpenHelperProxyCallback> overideCallbackClass) {
+        this(Collections.<ConfigurationOptions>emptyList());
+        this.overideCallbackClass = overideCallbackClass;
+    }
+
     @Override
     public SupportSQLiteOpenHelper create(SupportSQLiteOpenHelper.Configuration config) {
+        if(overideCallbackClass != null) {
+            try {
+                SQLiteOpenHelperProxyCallback proxyCallback = overideCallbackClass.getConstructor(SupportSQLiteOpenHelper.Callback.class).newInstance(config.callback);
+                return new CallbackSQLiteOpenHelper(config.context, config.name, proxyCallback, configurationOptions);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return new CallbackSQLiteOpenHelper(config.context, config.name, config.callback, configurationOptions);
     }
 
