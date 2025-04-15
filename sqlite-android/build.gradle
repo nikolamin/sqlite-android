@@ -10,7 +10,7 @@ android {
     buildToolsVersion = "34.0.0"
     ndkVersion "26.1.10909125"
 
-    compileSdk 34
+    compileSdk 35
 
     namespace "io.requery.android.sqlite"
 
@@ -48,17 +48,17 @@ android {
 }
 
 dependencies {
-    api("androidx.core:core:1.12.0")
-    api("androidx.sqlite:sqlite:2.4.0")
+    api('androidx.core:core:1.16.0')
+    api('androidx.sqlite:sqlite:2.5.0')
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test:core:1.5.0")
-    androidTestImplementation("androidx.test:runner:1.5.2")
-    androidTestImplementation("androidx.test:rules:1.5.0")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation('androidx.test:core:1.6.1')
+    androidTestImplementation('androidx.test:runner:1.6.2')
+    androidTestImplementation('androidx.test:rules:1.6.1')
+    androidTestImplementation('androidx.test.ext:junit:1.2.1')
 }
 
 ext {
-    sqliteDistributionUrl = "https://www.sqlite.org/2025/sqlite-amalgamation-3490000.zip"
+    sqliteDistributionUrl = "https://www.sqlite.org/2025/sqlite-amalgamation-3490100.zip"
 }
 
 tasks.register("downloadSqlite", Download) {
