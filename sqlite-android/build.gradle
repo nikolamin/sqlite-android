@@ -3,19 +3,19 @@ import com.vanniktech.maven.publish.SonatypeHost
 plugins {
     id "de.undercouch.download"
     id "com.android.library"
-    id "com.vanniktech.maven.publish" version "0.27.0"
+    id "com.vanniktech.maven.publish" version "0.30.0"
 }
 
 android {
-    buildToolsVersion = "34.0.0"
-    ndkVersion "26.1.10909125"
+    buildToolsVersion = "35.0.1"
+    ndkVersion "28.0.13004108"
 
     compileSdk 35
 
     namespace "io.requery.android.sqlite"
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 21
         versionName VERSION_NAME
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
